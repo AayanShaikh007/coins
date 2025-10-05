@@ -1,26 +1,77 @@
+// this push has the color change and partially finished data view function/
+
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
+#include <stdlib.h>
 
 // Start by making functon that stores data --> amount$, category, date.
 
-int main () {
-    printf("BudgetWiseBudgetWiseBudgetWiseBudgetWiseBudgetWise\n");
-    // printf("\n");  add ascii art  
+typedef struct {
+    double amount;
+    int category;
+    char date[11];
+} Transaction;
 
-    printf("Welcome to BudgetWise!\n");
+void sort_file() {
+    // read all lines into array of structs?
+    int max_transactions = 100; 
+    FILE *file = fopen("C:\\Coding\\siege\\coins\\data.txt", "r");
+    Transaction transactions[max_transactions];
+    
+    int count = 0;
+    char line[128];
+
+    // this should parse through each line and store data in struct array
+    while (fgets(line, sizeof(line), file) && count < max_transactions) {
+        if (sscanf(line, "%lf,%d,%10s",
+            &transactions[count].amount, 
+            &transactions[count].category, 
+            transactions[count].date) == 3) {
+            count++;
+        }
+    }
+    
+    fclose(file);
+
+
+    // used ai for bubble sort implementation
+    for (int i = 0; i < count-1; i++) {
+        for (int j = 0; j < count -i-1; j++) {
+            if (strcmp(transactions[j].date, transactions[j+1].date) > 0) {  // if date is out of order, j comes after j+1
+                // swap the transactions[j] and transactions[j+1] 
+                Transaction temporary = transactions[j];
+                transactions[j] = transactions[j+1];
+                transactions[j+1] = temporary;
+            }
+        }
+    }
+
+    // writing sorted back to data.txt
+    FILE *out = fopen("C:\\Coding\\siege\\coins\\data.txt", "w");
+    for (int i = 0; i < count; i++) {
+        fprintf(out, "%.2lf,%d,%s\n", transactions[i].amount, transactions[i].category, transactions[i].date);
+    }
+    fclose(out);
+
+
+
+    // sort array by date
+    // write back to file
+    // use bubble sort for simplicity
+}
+
+
+void data_record() {
     
     double amount;
-
-    int category; 
+    int category;   
     char category_name[20]; // string of max length 20, for safety
-    const char *categories[] = {"food", "transport", "entertainment", "utilities", "others"};
+    const char *categories[] = {"groceries", "food", "transportation", "books", "entertainment", "utilities", "others"};
 
     char date[11]; // Format: YYYY-MM-DD
 
-
-
-    // add method to add new categories. 
-
+    // add method to add new categories.
 
     printf("Enter exact amount spent: ");
     scanf("%lf", &amount);
@@ -70,5 +121,116 @@ int main () {
     
     // ------------------------------------------
     
-    return 0; 
+}
+
+
+
+void data_view() {
+    
+    FILE *file = fopen("C:\\Coding\\siege\\coins\\data.txt", "r");
+    if (file == NULL) {
+        printf("error opening file");
+        return;
+    }
+    
+    printf("\nWhat would you like to do?\n");
+    printf("1. View all data\n2. something 3. Go back to main menu\n");
+
+    int choice; 
+    scanf("%d", &choice);
+
+    switch (choice) {
+        case 1:
+            char line[128];
+            printf("\n\nTransactions:\n\n");
+            
+            int m = 1; 
+            while (fgets(line, sizeof(line), file)) {
+                double amount; 
+                int category; 
+                char date[11];    
+
+                if (sscanf(line, "%lf,%d,%10s", &amount, &category, date) == 3) {  
+                    printf("Transaction %d: Amount: %.2lf | Category: %d | Date: %s\n", m++, amount, category, date);
+                }
+            }
+
+            break;
+        case 2:
+            sort_file();
+
+            break;
+        
+        case 3:
+            printf("Going back to main menu\n");
+            break;
+
+        default:
+            printf("Invalid choice.\n");
+            return;
+    } 
+
+
+
+
+    
+    
+    // close file at end
+    fclose(file);
+
+}
+
+
+
+int main() {
+    // ascii art from generator: https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type+Something+&x=none&v=4&h=4&w=80&we=false
+    printf("\033[1;32m"); // changing terminal color
+    
+    printf(" /$$$$$$$                  /$$                       /$$     /$$      /$$ /$$                      \n");
+    printf("| $$__  $$                | $$                      | $$    | $$  /$ | $$|__/                      \n");
+    printf("| $$  \\ $$ /$$   /$$  /$$$$$$$  /$$$$$$   /$$$$$$  /$$$$$$  | $$ /$$$| $$ /$$  /$$$$$$$  /$$$$$$   \n");
+    printf("| $$$$$$$ | $$  | $$ /$$__  $$ /$$__  $$ /$$__  $$|_  $$_/  | $$/$$ $$ $$| $$ /$$_____/ /$$__  $$  \n");
+    printf("| $$__  $$| $$  | $$| $$  | $$| $$  \\ $$| $$$$$$$$  | $$    | $$$$_  $$$$| $$|  $$$$$$ | $$$$$$$$  \n");
+    printf("| $$  \\ $$| $$  | $$| $$  | $$| $$  | $$| $$_____/  | $$ /$$| $$$/ \\  $$$| $$ \\____  $$| $$_____/  \n");
+    printf("| $$$$$$$/|  $$$$$$/|  $$$$$$$|  $$$$$$$|  $$$$$$$  |  $$$$/| $$/   \\  $$| $$ /$$$$$$$/|  $$$$$$$  \n");
+    printf("|_______/  \\______/  \\_______/ \\____  $$ \\_______/   \\___/  |__/     \\__/|__/|_______/  \\_______/  \n");
+    printf("                               /$$  \\ $$                                                           \n");
+    printf("                              |  $$$$$$/                                                           \n");
+    printf("                               \\______/                                                            \n");
+    printf("Welcome to BudgetWise!\n");
+
+    printf("\033[0m");   
+
+
+    while (1) {
+        printf("Select mode:\n1. Data Record\n2. Data View\n0. Exit\n");
+        int mode;
+        scanf ("%d", &mode);
+
+        if (mode == 1) {
+            data_record();
+            while (1) {
+                printf("\n Do you want to continue inputting data? (y/n)\n");
+                char cont;
+                scanf(" %c", &cont);
+                if (cont == 'y' || cont == 'Y') {
+                    data_record();
+                } else {
+                    printf("Returning to main menu.\n\n");
+                    break;
+                }
+            }
+
+        } else if (mode == 2) {
+            data_view();  
+        } else if (mode == 0) {
+            printf("Exiting program. Goodbye!\n");
+            exit(0);
+        
+        } else {
+            printf("Invalid mode selected.\n");
+        }
+    }
+
+    return 0;
 }

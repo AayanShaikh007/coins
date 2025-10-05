@@ -28,4 +28,14 @@ Functionalities:
 
 Today I will start making the Data Record functionality, I will work on data saving once I have a proof of concept of the data record functionality. 
 
-I have a minimum working product of the Data Record Mode. The program asks for the user to enter the exact amount they spent, asks them to specify the category it fits into, and asks for the date of the transaction (defaults to the present day).   
+I have a minimum working product of the Data Record Mode. The program asks for the user to enter the exact amount they spent, asks them to specify the category it fits into, and asks for the date of the transaction (defaults to the present day). I also added the data saving feature because I was working with the data that needed to be saved. Next, I will work on the Data View Mode. 
+
+I finished some of the data view mode, for example, I added a method to read all data from the text file and display the transactions to the user. 
+
+# October 5th 2025
+
+Today I finished adding the first method of the data view mode. I wanted to add a feature to the data view mode that would format/sort the txt file. The data.txt needs to be sorted by date for other aforementioned features as well. 
+
+I have now finished the data.txt file sort functionality. Part of the functionality needed to efficiently parse through the code to sort it by date. I used AI here for a bubble sort implementation. I also modifed the code so that it continuously asks/waits for input and doesnt need to be restarted. 
+
+Next, I will be adding a feature to analyze expenses over the past 30 days. This function should be able to select transactions in the last 30 days, see their categories and return a number of suggestions back to the user. 
