@@ -28,4 +28,4 @@ Functionalities:
 
 Today I will start making the Data Record functionality, I will work on data saving once I have a proof of concept of the data record functionality. 
 
-I have a minimum working product of the Data Record Mode. The program asks for the user to enter the exact amount they spent, asks them to specify the category it fits into, and asks for the date of the transaction (defaults to the present day). 
+I have a minimum working product of the Data Record Mode. The program asks for the user to enter the exact amount they spent, asks them to specify the category it fits into, and asks for the date of the transaction (defaults to the present day).   
