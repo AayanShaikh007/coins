@@ -184,7 +184,7 @@ void data_view() {
 
 int main() {
     // ascii art from generator: https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type+Something+&x=none&v=4&h=4&w=80&we=false
-    printf("\033[1;32m"); // changing terminal color
+    printf("\033[1;32m"); // making terminal color green
     
     printf(" /$$$$$$$                  /$$                       /$$     /$$      /$$ /$$                      \n");
     printf("| $$__  $$                | $$                      | $$    | $$  /$ | $$|__/                      \n");
