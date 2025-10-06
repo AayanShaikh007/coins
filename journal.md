@@ -38,4 +38,10 @@ Today I finished adding the first method of the data view mode. I wanted to add 
 
 I have now finished the data.txt file sort functionality. Part of the functionality needed to efficiently parse through the code to sort it by date. I used AI here for a bubble sort implementation. I also modifed the code so that it continuously asks/waits for input and doesnt need to be restarted. 
 
-Next, I will be adding a feature to analyze expenses over the past 30 days. This function should be able to select transactions in the last 30 days, see their categories and return a number of suggestions back to the user. 
+Next, I will be adding a feature to analyze expenses over the past 30 days. This function should be able to select transactions in the last 30 days, see their categories and return a number of suggestions back to the user.
+
+refined brainstorming/to do list: 
+- add insights
+- if time use python for visualization
+- graphs?
+- add necessity value to list 
